@@ -16,25 +16,6 @@ SRC				=	src/gomoku.py	\
 
 all: $(NAME)
 
-ifeq ($(OS), Windows_NT)
-$(NAME): setup
-	python3.10 -m PyInstaller --onefile $(MAIN) --distpath . -n pbrain-gomoku-ai
-else
-$(NAME): setup
-	cp $(MAIN) ./$(NAME)
-endif
-
-ifeq ($(OS), Windows_NT)
-setup:
-	echo "Windows"
-#	@echo "Installing requirements..."
-#	@if (python3.10 -c "import PyInstaller" 2> $null); then \
-#		echo "PyInstaller already installed"; \
-#	else \
-#		echo "Installing PyInstaller..."; \
-#		pip3 install PyInstaller >> $null; \
-#	fi
-else
 setup:
 	@echo "Installing requirements..."
 	@if (python3.10 -c "import PyInstaller" 2> /dev/null); then \
@@ -43,22 +24,19 @@ setup:
 		echo "Installing PyInstaller..."; \
 		pip3 install PyInstaller; \
 	fi
-endif
 
-ifeq ($(OS), Windows_NT)
-clean:
-	rm .\build
-	rm .\pbrain-gomoku-ai.spec
+$(NAME): setup
+	python3.10 -m PyInstaller --onefile $(MAIN) --distpath . -n $(NAME)
 
-fclean: clean
-	rm .\pbrain-gomoku-ai.exe
-else
+
+
 clean:
+	rm -rf ./build
+	$(RM) ./pbrain-gomoku-ai.spec
 	$(RM) -r __pycache__
 
 fclean: clean
 	$(RM) $(NAME)
-endif
 
 re: fclean all
 
