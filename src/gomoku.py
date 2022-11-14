@@ -18,3 +18,16 @@ def gomoku():
         elif command[0] == "END":
             my_ai.end()
             break
+        elif command[0] == "ABOUT":
+            my_ai.about()
+        elif command[0] == "RESTART":
+            my_ai.restart()
+        elif command[0] == "RECTSTART":
+            my_ai.rectstart(command[1:])
+        elif command[0] == "TAKEBACK":
+            my_ai.takeback(command[1:])
+        elif command[0] == "PLAY":
+            my_ai.play(command[1])
+        else:
+            print("ERROR Invalid command", flush=True)
+    return 0
