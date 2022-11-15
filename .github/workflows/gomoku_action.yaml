@@ -1,0 +1,40 @@
+---
+name: gomoku_action
+
+on: push
+
+jobs:
+
+  compile_epitest:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.1
+        with:
+          fetch-depth: 0
+
+      - name: make fclean
+        run: make fclean
+
+      - name: make clean
+        run: make clean
+
+      - name: make
+        run: make
+
+  compile_windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.1
+        with:
+          fetch-depth: 0
+
+      - name: clean
+        run: ./clear_repo.ps1
+
+      - name: make
+        run: ./generate_binary.ps1
