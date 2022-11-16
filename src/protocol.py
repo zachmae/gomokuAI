@@ -1,4 +1,3 @@
-
 def start(self, command):
     size = int(command[1])
     try:

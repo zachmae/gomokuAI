@@ -2,7 +2,7 @@ import sys
 
 class ai:
 
-    def init(self):
+    def __init__(self):
         self.board = []
         self.current_turn = 0
         self.color = 0
