@@ -1,3 +1,3 @@
-rm -fr .\build
-rm -fr .\pbrain-gomoku-ai.spec
-rm -fr .\pbrain-gomoku-ai.exe
+rm .\build
+rm .\pbrain-gomoku-ai.spec
+rm .\pbrain-gomoku-ai.exe
