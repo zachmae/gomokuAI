@@ -4,30 +4,28 @@
 ## File description:
 ## Makefile
 
+CP 			= 	-cp
+MV 			= 	-mv
+EXEC 		=	-chmod +x
+
 NAME			=	pbrain-gomoku-ai
 
 REQUIREMENTS	=	requirements.txt
 
 MAIN			=	src/main.py
+SRC = $(MAIN) \
+	  src/AIclass.py \
+	  src/board_analyze.py \
+	  src/gomoku.py \
+	  src/protocol.py
 
-# Useless by now
-SRC				=	src/gomoku.py	\
-					src/AIclass.py
 
 all: $(NAME)
 
-setup:
-	@echo "Installing requirements..."
-	@if (python3.10 -c "import PyInstaller" 2> /dev/null); then \
-		echo "PyInstaller already installed"; \
-	else \
-		echo "Installing PyInstaller..."; \
-		pip3 install PyInstaller; \
-	fi
-
-$(NAME): setup
-	python3.10 -m PyInstaller --onefile $(MAIN) --distpath . -n $(NAME)
-
+$(NAME):
+	$(CP) $(SRC) .
+	$(MV) main.py $(NAME)
+	$(EXEC) $(NAME)
 
 
 clean:
@@ -37,6 +35,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) AIclass.py board_analyze.py gomoku.py protocol.py main.py
 
 re: fclean all
 
