@@ -1,5 +1,6 @@
 from math import inf
 from board_analyze import calculate_board_value
+from minmax import minmax
 
 
 class Ai:
