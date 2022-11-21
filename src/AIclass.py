@@ -42,6 +42,23 @@ class Ai:
             return False
 
     ## Brain of the AI
+    def do_minmax(self):
+        best_value = -inf
+        best_move = (0, 0)
+        for x in range(self.sizeX):
+            for y in range(self.sizeY):
+                if (self.board[x][y] == self.EMPTY):
+                    self.board[x][y] = self.ALLY
+                    value = minmax(self.board, 2,True, self.ALLY, self.ENEMY)
+                    self.board[x][y] = self.EMPTY
+                    if (value > best_value):
+                        best_value = value
+                        best_move = (x, y)
+        print(str(best_move[0]) + "," + str(best_move[1]), flush=True)
+        self.board[best_move[0]][best_move[1]] = self.ALLY
+        return True
+
+    ## Brain of the AI
     def do_action(self):
         print("DEBUG Turn: ", self.current_turn, flush=True)
         for x in range(self.sizeX):
