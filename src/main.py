@@ -3,12 +3,15 @@
 import sys
 import gomoku
 
+
 def main():
-    gomoku.gomoku()
+    return gomoku.gomoku()
+
 
 if __name__ == '__main__':
     try:
-        main()
+        if main() != 0:
+            sys.exit(84)
     except Exception as e:
         print("Error:", e, file=sys.stderr)
         sys.exit(84)

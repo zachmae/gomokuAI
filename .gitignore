@@ -1,4 +1,12 @@
-*__pycache__
-pbrain-gomoku-ai*
-./build
+## Folders ##
+build/
 .idea/
+__pycache__/
+Erwan/
+
+
+## Executables ##
+*.exe
+
+## Files ##
+*.spec
