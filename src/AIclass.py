@@ -24,7 +24,7 @@ class Ai:
 
     ## COMMAND PARSER
     def parse_command(self, command):
-        print("DEBUG Command Received ", command, flush=True)
+        print("MESSAGE Command Received ", command, flush=True)
         command_list = {"START": self.start,
                         "TURN": self.turn,
                         "BEGIN": self.begin,
@@ -47,15 +47,15 @@ class Ai:
         best_move = (0, 0)
         for x in range(self.sizeX):
             for y in range(self.sizeY):
-                if (self.board[x][y] == self.EMPTY):
-                    self.board[x][y] = self.ALLY
-                    value = minmax(self.board, 2,True, self.ALLY, self.ENEMY)
-                    self.board[x][y] = self.EMPTY
+                if (self.game_board[x][y] == self.EMPTY):
+                    self.game_board[x][y] = self.ALLY
+                    value = minmax(self.game_board, 2,True, self.ALLY, self.ENEMY)
+                    self.game_board[x][y] = self.EMPTY
                     if (value > best_value):
                         best_value = value
                         best_move = (x, y)
         print(str(best_move[0]) + "," + str(best_move[1]), flush=True)
-        self.board[best_move[0]][best_move[1]] = self.ALLY
+        self.game_board[best_move[0]][best_move[1]] = self.ALLY
         return True
 
     ## Brain of the AI
