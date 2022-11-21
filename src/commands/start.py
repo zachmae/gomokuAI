@@ -6,8 +6,8 @@ def start(self, command):
         size = int(command[1])
         self.sizeX = size
         self.sizeY = size
-        if self.sizeX > 5 and self.sizeY > 5:
-            self.board = [[self.EMPTY for x in range(size)] for y in range(size)]
+        if self.sizeX > 0 and self.sizeY > 0:
+            self.game_board = [[self.EMPTY for x in range(size)] for y in range(size)]
             print("OK", flush=True)
             return True
         else:
@@ -27,7 +27,7 @@ def rect_start(self, command):
         self.sizeX = int(size[0])
         self.sizeY = int(size[1])
         if self.sizeX > 0 and self.sizeY > 0:
-            self.board = [[self.EMPTY for x in range(self.sizeY)] for y in range(self.sizeX)]
+            self.game_board = [[self.EMPTY for x in range(self.sizeY)] for y in range(self.sizeX)]
             print("OK", flush=True)
             return True
         else:
@@ -39,7 +39,7 @@ def rect_start(self, command):
 
 
 def restart(self, command):
-    self.board = [[self.EMPTY for x in range(self.sizeX)] for y in range(self.sizeY)]
+    self.game_board = [[self.EMPTY for x in range(self.sizeX)] for y in range(self.sizeY)]
     self.current_turn = 0
     self.color = 0
     self.time = 0
