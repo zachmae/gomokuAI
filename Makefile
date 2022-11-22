@@ -4,7 +4,7 @@
 ## File description:
 ## Makefile
 
-CP 			= 	-cp
+CP 			= 	-cp -r
 MV 			= 	-mv
 EXEC 		=	-chmod +x
 
@@ -17,8 +17,8 @@ SRC = $(MAIN) \
 	  src/AIclass.py \
 	  src/board_analyze.py \
 	  src/gomoku.py \
-	  src/protocol.py
-
+	  src/minmax.py \
+	  src/commands
 
 all: $(NAME)
 
@@ -35,7 +35,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) AIclass.py board_analyze.py gomoku.py protocol.py main.py
+	rm -rf AIclass.py board_analyze.py gomoku.py commands minmax.py main.py
 
 re: fclean all
 
