@@ -6,16 +6,23 @@
 */
 
 #ifndef Gomoku_HPP_
-#define Gomoku_HPP_
+    #define Gomoku_HPP_
 
-#include <utility>
-#include <vector>
-#include <cstdint>
+    #include <utility>
+    #include <vector>
+    #include <cstdint>
+    #include <map>
+    #include <string>
+
+class Gomoku;
+
+typedef bool (Gomoku::*fun)(std::vector<int>);
 
 class Gomoku {
+
     public:
         Gomoku();
-        ~Gomoku();
+        ~Gomoku() = default;
 
         // START
         bool start(std::vector<int>);
@@ -36,6 +43,10 @@ class Gomoku {
     private:
         std::vector<std::vector<int_fast8_t>> _gameBoard;
 
+        std::map<std::string, fun> commandList;
+
+        void fillCommandList();
+
         int _currentTurn;
         int _color;
         int _time;
@@ -44,7 +55,7 @@ class Gomoku {
         std::pair <int, int> _boardSize;
 
         int_fast8_t _EMPTY;
-        int_fast8_t _ENNEMY;
+        int_fast8_t _ENEMY;
         int_fast8_t _ALLY;
 };
 

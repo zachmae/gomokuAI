@@ -7,18 +7,25 @@
 
 #include "gomoku.hpp"
 #include <iostream>
+#include <ranges>
 
 bool Gomoku::begin(std::vector<int> command)
 {
-    _ENNEMY = 2;
+    _ENEMY = 2;
     _ALLY = 1;
 }
 
-bool Gomoku::turn(std::vector<int> command)
+/*bool Gomoku::turn(std::vector<int> command)
 {
-    if (command.size() < 2)
+    std::pair<int, int> pos;
+
+    if (command.size() < 2) {
         std::cout << "ERROR TURN command invalid" << std::endl;
-}
+        return false;
+    }
+    auto split = command | std::ranges::views::split(' ')
+    std::views::split(command, ',');
+}*/
 
 // def turn(self, command):
 //     pos = command[1]
