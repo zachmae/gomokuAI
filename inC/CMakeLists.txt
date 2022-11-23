@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-    add_compile_options(-Wall -Wextra -O3)
+    add_compile_options(-Wall -Wextra -O3 -g3)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 if (WIN32)
@@ -26,5 +26,6 @@ set(COMMAND_SRC
 add_executable(${PROJECT_NAME}
         src/main.cpp
         src/gomoku.cpp
+        src/start.cpp
         ${COMMAND_SRC}
 )

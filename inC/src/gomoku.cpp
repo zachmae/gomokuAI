@@ -5,29 +5,39 @@
 ** gomoku
 */
 
+#include <iostream>
 #include "gomoku.hpp"
 
-Gomoku::Gomoku()
+void Gomoku::fillCommandList()
+{
+    commandList["RESTART"] = &Gomoku::restart;
+    commandList["BEGIN"] = &Gomoku::begin;
+    commandList["TURN"] = &Gomoku::turn;
+    commandList["PLAY"] = &Gomoku::play;
+    commandList["TAKEBACK"] = &Gomoku::takeBack;
+//    commandList["BOARD"] = &Gomoku::board;
+//    commandList["INFO"] = &Gomoku::info;
+//    commandList["ABOUT"] = &Gomoku::about;
+}
+
+Gomoku::Gomoku(std::size_t x, std::size_t y)
+: _EMPTY(0), _ENEMY(1), _ALLY(2), _boardSize(x, y),
+    _gameBoard(x, std::vector<uint_fast8_t>(y, _EMPTY)), _positions(0, 0)
 {
     _currentTurn = 0;
     _color = 0;
     _time = 0;
-    _EMPTY = 0;
-    _ENEMY = 1;
-    _ALLY = 2;
     fillCommandList();
 }
 
-void Gomoku::fillCommandList()
+bool Gomoku::checkCommand(std::string const &name, std::string const &data)
 {
-    commandList.insert(std::make_pair<std::string, fun>("START", &Gomoku::start));
-    commandList.insert(std::make_pair<std::string, fun>("RECTSTART", &Gomoku::rectStart));
-    commandList.insert(std::make_pair<std::string, fun>("RESTART", &Gomoku::restart));
-    commandList.insert(std::make_pair<std::string, fun>("BEGIN", &Gomoku::begin));
-    commandList.insert(std::make_pair<std::string, fun>("TURN", &Gomoku::turn));
-    commandList.insert(std::make_pair<std::string, fun>("PLAY", &Gomoku::play));
-    commandList.insert(std::make_pair<std::string, fun>("TAKEBACK", &Gomoku::takeBack));
-    commandList.insert(std::make_pair<std::string, fun>("BOARD", &Gomoku::board));
-    commandList.insert(std::make_pair<std::string, fun>("INFO", &Gomoku::info));
-    commandList.insert(std::make_pair<std::string, fun>("ABOUT", &Gomoku::about));
+    std::cout << "name : |" << name << "| and data = |" << data << "|" << std::endl;
+    for (auto &it : commandList) {
+        if (it.first == name) {
+            return (this->*it.second)(data);
+        }
+    }
+    std::cout << "UNKNOWN command" << std::endl;
+    return true;
 }

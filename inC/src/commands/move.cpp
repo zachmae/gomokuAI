@@ -7,41 +7,90 @@
 
 #include "gomoku.hpp"
 #include <iostream>
-#include <ranges>
+#include <cstring>
 
-bool Gomoku::begin(std::vector<int> command)
+static std::pair<int, int> getPos(std::string const &str)
 {
-    _ENEMY = 2;
-    _ALLY = 1;
+    char *token = std::strtok((char *)str.c_str(), ",");
+    std::string strX((token == nullptr || std::string(token) == str) ? "" : token);
+    if (strX.empty())
+        return std::make_pair(-1, -1);
+    std::string strY(str.c_str() + (strX.size() + 1));
+
+    try {
+        return std::make_pair(std::stoi(strX), std::stoi(strY));
+    } catch (std::invalid_argument &e) {
+        return std::make_pair(-1, -1);
+    }
 }
 
-/*bool Gomoku::turn(std::vector<int> command)
+bool Gomoku::begin(std::string const &data)
 {
-    std::pair<int, int> pos;
+    _ALLY = 1;
+    _ENEMY = 2;
+    return true; // TODO do minmax algo
+}
 
-    if (command.size() < 2) {
-        std::cout << "ERROR TURN command invalid" << std::endl;
+bool Gomoku::turn(std::string const &data)
+{
+    std::pair<int, int> pos = getPos(data);
+
+    if (pos.first == -1 || pos.second == -1) {
+        std::cout << "ERROR: TURN position must be a number" << std::endl;
         return false;
     }
-    auto split = command | std::ranges::views::split(' ')
-    std::views::split(command, ',');
-}*/
+    if (pos.first >= _boardSize.first || pos.second >= _boardSize.second) {
+        std::cout << "ERROR: TURN position is out of range" << std::endl;
+        return false;
+    }
+    if (_gameBoard[pos.first][pos.second] != _EMPTY) {
+        std::cout << "ERROR: TURN position is already taken" << std::endl;
+        return false;
+    }
+    _gameBoard[pos.first][pos.second] = _ENEMY;
+    _currentTurn++;
+    return true; //TODO do minmax algo
+}
 
-// def turn(self, command):
-//     pos = command[1]
-//     try:
-//         x, y = map(int, pos.split(','))
+bool Gomoku::play(std::string const &data)
+{
+    std::pair<int, int> pos = getPos(data);
 
-//         if x < 0 or y < 0 or x >= self.sizeX or y >= self.sizeY:
-//             print("ERROR: TURN Invalid position (out of board)", flush=True)
-//             return False
-//         elif self.game_board[x][y] != self.EMPTY:
-//             print("ERROR: TURN Invalid position (already taken)", x, y, pos[x][y], flush=True)
-//             return False
-//         else:
-//             self.game_board[x][y] = self.ENEMY
-//             self.current_turn += 1
-//             return self.do_minmax()
-//     except Exception as e:
-//         print("ERROR: TURN Invalid position (not a number)", e, flush=True)
-//         return False
+    if (pos.first == -1 || pos.second == -1) {
+        std::cout << "ERROR: PLAY position must be a number" << std::endl;
+        return false;
+    }
+    if (pos.first >= _boardSize.first || pos.second >= _boardSize.second) {
+        std::cout << "ERROR: PLAY position is out of range" << std::endl;
+        return false;
+    }
+    if (_gameBoard[pos.first][pos.second] != _EMPTY) {
+        std::cout << "ERROR: PLAY position is already taken" << std::endl;
+        return false;
+    }
+    _gameBoard[pos.first][pos.second] = _ALLY;
+    _currentTurn++;
+    return true;
+}
+
+bool Gomoku::takeBack(std::string const &data)
+{
+    std::pair<int, int> pos = getPos(data);
+
+    if (pos.first == -1 || pos.second == -1) {
+        std::cout << "ERROR: TAKEBACK position must be a number" << std::endl;
+        return false;
+    }
+    if (pos.first >= _boardSize.first || pos.second >= _boardSize.second) {
+        std::cout << "ERROR: TAKEBACK position is out of range" << std::endl;
+        return false;
+    }
+    if (_gameBoard[pos.first][pos.second] == _EMPTY) {
+        std::cout << "ERROR: TAKEBACK position is already empty" << std::endl;
+        return false;
+    }
+    _gameBoard[pos.first][pos.second] = _EMPTY;
+    _currentTurn--;
+    std::cout << "OK" << std::endl;
+    return true;
+}
