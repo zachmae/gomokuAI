@@ -1,6 +1,5 @@
 from AIclass import Ai
 
-
 def gomoku():
     my_ai = Ai()
     command = ["NULL"]

@@ -2,29 +2,31 @@ from board_analyze import calculate_board_value
 import math
 
 def check_neighbours_one_not_empty(board : list, x : int, y : int):
+    board_len_x = len(board)
+    board_len_y = len(board[y])
     if (x and board[y][x - 1]):
-        print('DEBUG gauche', flush=True)
+        # print('DEBUG gauche', flush=True)
         return True
     if (y and board[y - 1][x]):
-        print('DEBUG haut', flush=True)
+        # print('DEBUG haut', flush=True)
         return True
-    if (len(board[y]) - 1 != x and board[y][x + 1]):
-        print('DEBUG droite', flush=True)
+    if (board_len_y - 1 != x and board[y][x + 1]):
+        # print('DEBUG droite', flush=True)
         return True
-    if (len(board) - 1 != y and board[y + 1][x]):
-        print('DEBUG bas', flush=True)
+    if (board_len_x - 1 != y and board[y + 1][x]):
+        # print('DEBUG bas', flush=True)
         return True
     if (x and y and board[y - 1][x - 1]):
-        print('DEBUG diagonal haut gauche', flush=True)
+        # print('DEBUG diagonal haut gauche', flush=True)
         return True
-    if (x and len(board) - 1 != y and board[y + 1][x - 1]):
-        print('DEBUG diagonal bas gauche', flush=True)
+    if (x and board_len_x - 1 != y and board[y + 1][x - 1]):
+        # print('DEBUG diagonal bas gauche', flush=True)
         return True
-    if (len(board[y]) - 1 != x and len(board) - 1 != y and board[y + 1][x + 1]):
-        print('DEBUG diagonal bas droite', flush=True)
+    if (board_len_y - 1 != x and board_len_x - 1 != y and board[y + 1][x + 1]):
+        # print('DEBUG diagonal bas droite', flush=True)
         return True
-    if (len(board[y]) - 1 != x and y and board[y - 1][x + 1]):
-        print('DEBUG diagonal haut droite', flush=True)
+    if (board_len_y - 1 != x and y and board[y - 1][x + 1]):
+        # print('DEBUG diagonal haut droite', flush=True)
         return True
     return False
 
