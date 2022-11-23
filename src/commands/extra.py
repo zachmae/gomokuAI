@@ -11,7 +11,7 @@ def board(self, plateau):
                 print("ERROR: BOARD Invalid board (out of board or not in ally empty enemy)", flush=True)
                 return False
             plateau[int(content[0])][int(content[1])] = int(content[2])
-            return self.do_action()
+            return self.do_minmax()
     except Exception as e:
         print("ERROR: BOARD Invalid board (except)", e, flush=True)
         return False

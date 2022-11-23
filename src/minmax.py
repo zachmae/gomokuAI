@@ -51,12 +51,27 @@ def minmax(board: list, depth: int, my_turn: bool, ally_sign, enemy_sign):
                     board[y][x] = 0
                     best_score = min(score, best_score)
         return best_score
-# x
-# [0, 0, 0, 0]
-# [1, 1, 1, 0]
-# [1, P, 1, 0]
-# [1, 1, 1, 0]y
 
-# [x - 1, y - 1]
-# [x - 1, y]
-# [x + 1, y + 1]
+def alpha_beta_prunning(board: list, depth: int, my_turn: bool, ally_sign, enemy_sign, alpha, beta):
+    if depth == 0:
+        return calculate_board_value(board, ally_sign, enemy_sign)
+    if my_turn:
+        for y in range(len(board)):
+            for x in range(len(board[y])):
+                if board[y][x] == 0 and check_neighbours_one_not_empty(board, x, y):
+                    board[y][x] = ally_sign
+                    alpha = max(alpha, alpha_beta_prunning(board, depth - 1, False, ally_sign, enemy_sign, alpha, beta))
+                    board[y][x] = 0
+                    if alpha >= beta:
+                        break
+        return alpha
+    else:
+        for y in range(len(board)):
+            for x in range(len(board[y])):
+                if board[y][x] == 0 and check_neighbours_one_not_empty(board, x, y):
+                    board[y][x] = enemy_sign
+                    beta = min(beta, alpha_beta_prunning(board, depth - 1, True, ally_sign, enemy_sign, alpha, beta))
+                    board[y][x] = 0
+                    if alpha >= beta:
+                        break
+        return beta

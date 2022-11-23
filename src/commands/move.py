@@ -2,7 +2,7 @@ def begin(self, command):
     self.ALLY = 1
     self.ENEMY = 2
     self.EMPTY = 0
-    return self.do_action()
+    return self.do_minmax()
 
 
 def turn(self, command):
@@ -18,7 +18,7 @@ def turn(self, command):
         else:
             self.game_board[x][y] = self.ENEMY
             self.current_turn += 1
-            return self.do_action()
+            return self.do_minmax()
     except Exception as e:
         print("ERROR: TURN Invalid position (not a number)", e, flush=True)
         return False
@@ -37,7 +37,7 @@ def play(self, command):
             return False
         self.game_board[x][y] = self.ALLY
         self.current_turn += 1
-        print(str(x) + "," + str(y), flush=True)
+        print(f"{x},{y}", flush=True)
         return True
     except Exception as e:
         print("ERROR: PLAY Invalid position (not a number)", e, flush=True)

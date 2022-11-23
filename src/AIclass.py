@@ -1,7 +1,11 @@
 from math import inf
 from board_analyze import calculate_board_value
-from minmax import minmax
+from minmax import minmax, alpha_beta_prunning
 
+def distance_from_middle(x, y, board):
+    middle_x = len(board[0]) // 2
+    middle_y = len(board) // 2
+    return abs(x - middle_x) + abs(y - middle_y)
 
 class Ai:
 
@@ -25,7 +29,7 @@ class Ai:
 
     ## COMMAND PARSER
     def parse_command(self, command):
-        print("MESSAGE Command Received ", command, flush=True)
+        print(f"MESSAGE Command Received {command}", flush=True)
         command_list = {"START": self.start,
                         "TURN": self.turn,
                         "BEGIN": self.begin,
@@ -50,25 +54,25 @@ class Ai:
             for y in range(self.sizeY):
                 if (self.game_board[x][y] == self.EMPTY):
                     self.game_board[x][y] = self.ALLY
-                    value = minmax(self.game_board, 2,True, self.ALLY, self.ENEMY)
+                    value = alpha_beta_prunning(self.game_board, 2, True, self.ALLY, self.ENEMY, -inf, inf)
                     self.game_board[x][y] = self.EMPTY
-                    if (value > best_value):
+                    if (value > best_value or (value == best_value and distance_from_middle(x, y, self.game_board) < distance_from_middle(best_move[0], best_move[1], self.game_board))):
                         best_value = value
                         best_move = (x, y)
-        print(str(best_move[0]) + "," + str(best_move[1]), flush=True)
+        print(f"{best_move[0]},{best_move[1]}", flush=True)
         self.game_board[best_move[0]][best_move[1]] = self.ALLY
         return True
 
     ## Brain of the AI
     def do_action(self):
-        print("DEBUG Turn: ", self.current_turn, flush=True)
+        print(f"DEBUG Turn: {self.current_turn}", flush=True)
         for x in range(self.sizeX):
-            print("DEBUG", self.game_board[x], flush=True)
+            print(f"DEBUG {self.game_board[x]}", flush=True)
         res = [[(-1 * inf) for x in range(self.sizeY)] for y in range(self.sizeX)]
         for x in range(self.sizeX):
             for y in range(self.sizeY):
                 if self.game_board[x][y] == self.EMPTY:
-                    print("DEBUG COORD check", x, y, flush=True)
+                    print(f"DEBUG COORD check ({x}, {y})", flush=True)
                     test = list()
                     for v in range(len(self.game_board)):
                         test.append(self.game_board[v][:])
@@ -77,7 +81,7 @@ class Ai:
         val, x, y = -1 * inf, 0, 0
         print("DEBUG ANALYSE", flush=True)
         for x in range(self.sizeX):
-            print("DEBUG", res[x], flush=True)
+            print(f"DEBUG {res[x]}", flush=True)
         for i in range(self.sizeX):
             for j in range(self.sizeY):
                 if res[i][j] > val:
@@ -87,6 +91,6 @@ class Ai:
         if val == -1 * inf:
             print("SUGGEST 0,0", flush=True)
             return False
-        print(str(x) + "," + str(y), flush=True)
+        print(f"{x},{y}", flush=True)
         self.game_board[x][y] = self.ALLY
         return True
