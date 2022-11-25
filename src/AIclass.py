@@ -62,35 +62,3 @@ class Ai:
         print(f"{best_move[0]},{best_move[1]}", flush=True)
         self.game_board[best_move[0]][best_move[1]] = self.ALLY
         return True
-
-    ## Brain of the AI
-    # def do_action(self):
-    #     print(f"DEBUG Turn: {self.current_turn}", flush=True)
-    #     for x in range(self.sizeX):
-    #         print(f"DEBUG {self.game_board[x]}", flush=True)
-    #     res = [[(-1 * inf) for x in range(self.sizeY)] for y in range(self.sizeX)]
-    #     for x in range(self.sizeX):
-    #         for y in range(self.sizeY):
-    #             if self.game_board[x][y] == self.EMPTY:
-    #                 print(f"DEBUG COORD check ({x}, {y})", flush=True)
-    #                 test = list()
-    #                 for v in range(len(self.game_board)):
-    #                     test.append(self.game_board[v][:])
-    #                 test[x][y] = self.ALLY
-    #                 res[x][y] = calculate_board_value(test, self.ALLY, self.ENEMY)
-    #     val, x, y = -1 * inf, 0, 0
-    #     print("DEBUG ANALYSE", flush=True)
-    #     for x in range(self.sizeX):
-    #         print(f"DEBUG {res[x]}", flush=True)
-    #     for i in range(self.sizeX):
-    #         for j in range(self.sizeY):
-    #             if res[i][j] > val:
-    #                 val = res[i][j]
-    #                 x = i
-    #                 y = j
-    #     if val == -1 * inf:
-    #         print("SUGGEST 0,0", flush=True)
-    #         return False
-    #     print(f"{x},{y}", flush=True)
-    #     self.game_board[x][y] = self.ALLY
-    #     return True
