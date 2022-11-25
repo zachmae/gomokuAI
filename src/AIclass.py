@@ -54,7 +54,7 @@ class Ai:
             for y in range(self.sizeY):
                 if (self.game_board[x][y] == self.EMPTY):
                     self.game_board[x][y] = self.ALLY
-                    value = alpha_beta_prunning(self.game_board, 2, False, self.ALLY, self.ENEMY, -inf, inf)
+                    value = alpha_beta_prunning(self.game_board, 1, False, self.ALLY, self.ENEMY, -inf, inf)
                     self.game_board[x][y] = self.EMPTY
                     if (value > best_value or (value == best_value and distance_from_middle(x, y, self.game_board) < distance_from_middle(best_move[0], best_move[1], self.game_board))):
                         best_value = value
@@ -62,35 +62,3 @@ class Ai:
         print(f"{best_move[0]},{best_move[1]}", flush=True)
         self.game_board[best_move[0]][best_move[1]] = self.ALLY
         return True
-
-    ## Brain of the AI
-    # def do_action(self):
-    #     print(f"DEBUG Turn: {self.current_turn}", flush=True)
-    #     for x in range(self.sizeX):
-    #         print(f"DEBUG {self.game_board[x]}", flush=True)
-    #     res = [[(-1 * inf) for x in range(self.sizeY)] for y in range(self.sizeX)]
-    #     for x in range(self.sizeX):
-    #         for y in range(self.sizeY):
-    #             if self.game_board[x][y] == self.EMPTY:
-    #                 print(f"DEBUG COORD check ({x}, {y})", flush=True)
-    #                 test = list()
-    #                 for v in range(len(self.game_board)):
-    #                     test.append(self.game_board[v][:])
-    #                 test[x][y] = self.ALLY
-    #                 res[x][y] = calculate_board_value(test, self.ALLY, self.ENEMY)
-    #     val, x, y = -1 * inf, 0, 0
-    #     print("DEBUG ANALYSE", flush=True)
-    #     for x in range(self.sizeX):
-    #         print(f"DEBUG {res[x]}", flush=True)
-    #     for i in range(self.sizeX):
-    #         for j in range(self.sizeY):
-    #             if res[i][j] > val:
-    #                 val = res[i][j]
-    #                 x = i
-    #                 y = j
-    #     if val == -1 * inf:
-    #         print("SUGGEST 0,0", flush=True)
-    #         return False
-    #     print(f"{x},{y}", flush=True)
-    #     self.game_board[x][y] = self.ALLY
-    #     return True
