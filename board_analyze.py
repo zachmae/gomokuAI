@@ -29,8 +29,8 @@ def analyse_board_value(board, sign, counter_sign):
     except Exception as e:
         print(f"error = {e}", flush=True)
         return score
-    # print(f"out", flush=True)
-    # return score
+    print(f"out", flush=True)
+    return score
 
 
 
