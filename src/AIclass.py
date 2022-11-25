@@ -54,7 +54,7 @@ class Ai:
             for y in range(self.sizeY):
                 if (self.game_board[x][y] == self.EMPTY):
                     self.game_board[x][y] = self.ALLY
-                    value = alpha_beta_prunning(self.game_board, 2, False, self.ALLY, self.ENEMY, -inf, inf)
+                    value = alpha_beta_prunning(self.game_board, 1, False, self.ALLY, self.ENEMY, -inf, inf)
                     self.game_board[x][y] = self.EMPTY
                     if (value > best_value or (value == best_value and distance_from_middle(x, y, self.game_board) < distance_from_middle(best_move[0], best_move[1], self.game_board))):
                         best_value = value
