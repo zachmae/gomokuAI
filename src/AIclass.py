@@ -23,7 +23,7 @@ class Ai:
         self.ENEMY = 1
         self.EMPTY = 0
 
-    from commands.extra import board, info, about
+    from commands.extra import board, info, about, display
     from commands.start import start, rect_start, restart
     from commands.move import begin, turn, play, take_back
 
@@ -39,7 +39,8 @@ class Ai:
                         "RESTART": self.restart,
                         "RECTSTART": self.rect_start,
                         "TAKEBACK": self.take_back,
-                        "PLAY": self.play}
+                        "PLAY": self.play,
+                        "DISPLAY": self.display}
         if command[0] in command_list:
             return command_list[command[0]](command)
         else:
