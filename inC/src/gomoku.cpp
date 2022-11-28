@@ -15,13 +15,13 @@ void Gomoku::fillCommandList()
     commandList["TURN"] = &Gomoku::turn;
     commandList["PLAY"] = &Gomoku::play;
     commandList["TAKEBACK"] = &Gomoku::takeBack;
-//    commandList["BOARD"] = &Gomoku::board;
-//    commandList["INFO"] = &Gomoku::info;
-//    commandList["ABOUT"] = &Gomoku::about;
+    commandList["BOARD"] = &Gomoku::board;
+    commandList["INFO"] = &Gomoku::info;
+    commandList["ABOUT"] = &Gomoku::about;
 }
 
 Gomoku::Gomoku(std::size_t x, std::size_t y)
-: _EMPTY(0), _ENEMY(1), _ALLY(2), _boardSize(x, y),
+    : _EMPTY(0), _ENEMY(1), _ALLY(2), _boardSize(x, y),
     _gameBoard(x, std::vector<uint_fast8_t>(y, _EMPTY)), _positions(0, 0)
 {
     _currentTurn = 0;
@@ -32,12 +32,19 @@ Gomoku::Gomoku(std::size_t x, std::size_t y)
 
 bool Gomoku::checkCommand(std::string const &name, std::string const &data)
 {
-    std::cout << "name : |" << name << "| and data = |" << data << "|" << std::endl;
     for (auto &it : commandList) {
-        if (it.first == name) {
+        if (it.first == name)
             return (this->*it.second)(data);
-        }
     }
     std::cout << "UNKNOWN command" << std::endl;
     return true;
 }
+
+int Gomoku::distanceFromMiddle(int x, int y) const
+{
+    int middleX = _boardSize.first; // 2;
+    int middleY = _boardSize.second; // 2
+
+    return abs(x - middleX) + abs(y - middleY);
+}
+

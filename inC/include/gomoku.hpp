@@ -13,7 +13,6 @@
     #include <cstdint>
     #include <map>
     #include <string>
-
     #include <functional>
 
 std::pair<std::size_t, std::size_t> starting(std::string const &arg);
@@ -47,6 +46,18 @@ class Gomoku {
 
         bool checkCommand(std::string const &name, std::string const &data);
 
+        int analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign);
+
+        bool checkNeighboursOneNotEmpty(int x, int y);
+
+        bool lunchMinmax();
+
+        int distanceFromMiddle(int x, int y) const;
+
+        bool minmax(int depth, bool myTurn);
+        int calculateBoardValue();
+
+        bool alphaBetaPruning(int depth, bool myTurn, int alpha, int beta);
     private:
 
         uint_fast8_t _EMPTY;
