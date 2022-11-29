@@ -56,6 +56,7 @@ class Gomoku {
         bool lunchMinmax();
 
         int distanceFromMiddle(int x, int y) const;
+        int trying(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign);
 
         bool minmax(int depth, bool myTurn);
         int calculateBoardValue();

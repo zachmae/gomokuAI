@@ -6,7 +6,6 @@
 */
 
 #include "gomoku.hpp"
-#include <iostream>
 
 int Gomoku::analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign)
 {

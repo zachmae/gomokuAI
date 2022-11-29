@@ -31,7 +31,6 @@ bool Gomoku::lunchMinmax()
     }
     _gameBoard[bestMove.first][bestMove.second] = _ALLY;
     std::cout << bestMove.first << "," << bestMove.second << std::endl;
-    //std::cout << "MESSAGE: " << bestMove.first << " " << bestMove.second << std::endl;
     return true;
 }
 
