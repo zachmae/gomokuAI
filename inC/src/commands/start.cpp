@@ -17,4 +17,5 @@ bool Gomoku::restart(std::string const &data)
     _EMPTY = 0;
     _ENEMY = 1;
     _ALLY = 2;
+    return true;
 }

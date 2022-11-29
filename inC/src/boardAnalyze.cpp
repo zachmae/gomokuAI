@@ -6,13 +6,12 @@
 */
 
 #include "gomoku.hpp"
-#include <limits>
+#include <iostream>
 
 int Gomoku::analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign)
 {
     int score = 0;
-    int inf = std::numeric_limits<int>::infinity();
-    int equivalent[6] = {0, 1, 2, 4, 8, inf};
+    int equivalent[6] = {0, 1, 2, 4, 8, INF};
     int multiplier = 0;
     int sizeH = 0;
     int sizeV = 0;
@@ -32,12 +31,12 @@ int Gomoku::analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign)
                     if (y + i >= _boardSize.second || _gameBoard[x][y] != sign)
                         break;
                 }
-                if (y + sizeH < _boardSize.second || _gameBoard[x][y + sizeH] != counterSign)
+                if (y + sizeH < _boardSize.second && _gameBoard[x][y + sizeH] != counterSign)
                     multiplier += 1;
                 if (y > 0 && _gameBoard[x][y - 1] == sign)
                     multiplier = 0;
-                if (equivalent[sizeH] == inf)
-                    return inf;
+                if (equivalent[sizeH] == INF)
+                    return INF;
                 score += equivalent[sizeH] * multiplier;
                 /// Check vertical
                 multiplier = 0;
@@ -53,8 +52,8 @@ int Gomoku::analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign)
                     multiplier += 1;
                 if (x > 0 && _gameBoard[x - 1][y] == sign)
                     multiplier = 0;
-                if (equivalent[sizeV] == inf)
-                    return inf;
+                if (equivalent[sizeV] == INF)
+                    return INF;
                 score += equivalent[sizeV] * multiplier;
                 /// Check diagonal up
                 multiplier = 0;
@@ -70,8 +69,8 @@ int Gomoku::analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign)
                     multiplier += 1;
                 if (x + 1 < _boardSize.first && y > 0 && _gameBoard[x + 1][y - 1] == sign)
                     multiplier = 0;
-                if (equivalent[sizeDu] == inf)
-                    return inf;
+                if (equivalent[sizeDu] == INF)
+                    return INF;
                 score += equivalent[sizeDu] * multiplier;
                 /// Check diagonal down
                 multiplier = 0;
@@ -87,8 +86,8 @@ int Gomoku::analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign)
                     multiplier += 1;
                 if (x > 0 && y > 0 && _gameBoard[x - 1][y - 1] == sign)
                     multiplier = 0;
-                if (equivalent[sizeDd] == inf)
-                    return inf;
+                if (equivalent[sizeDd] == INF)
+                    return INF;
                 score += equivalent[sizeDd] * multiplier;
             }
         }

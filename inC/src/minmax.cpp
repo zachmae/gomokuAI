@@ -12,7 +12,7 @@
 bool Gomoku::lunchMinmax()
 {
     int moveValue = 0;
-    int bestValue = (std::numeric_limits<int>::infinity()) * -1;
+    int bestValue = -INF;
     std::pair<int, int> bestMove = std::make_pair(0, 0);
 
     for (int x = 0; x < _boardSize.first; x++) {
@@ -31,6 +31,7 @@ bool Gomoku::lunchMinmax()
     }
     _gameBoard[bestMove.first][bestMove.second] = _ALLY;
     std::cout << bestMove.first << "," << bestMove.second << std::endl;
+    //std::cout << "MESSAGE: " << bestMove.first << " " << bestMove.second << std::endl;
     return true;
 }
 
@@ -55,7 +56,7 @@ bool Gomoku::checkNeighboursOneNotEmpty(int x, int y)
 
 bool Gomoku::minmax(int depth, bool myTurn)
 {
-    int bestScore = (myTurn) ? (-std::numeric_limits<int>::infinity()) : (std::numeric_limits<int>::infinity());
+    int bestScore = (myTurn) ? (-INF) : (INF);
     int score = 0;
 
     if (depth == 0)
@@ -76,7 +77,7 @@ bool Gomoku::minmax(int depth, bool myTurn)
 
 bool Gomoku::alphaBetaPruning(int depth, bool myTurn, int alpha, int beta)
 {
-    int bestScore = (myTurn) ? (-std::numeric_limits<int>::infinity()) : (std::numeric_limits<int>::infinity());
+    int bestScore = (myTurn) ? (-INF) : (INF);
 
     if (depth == 0)
         return calculateBoardValue();

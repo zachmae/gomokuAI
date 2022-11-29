@@ -21,7 +21,6 @@ bool Gomoku::about(std::string const &data)
 
 bool Gomoku::info(std::string const &data)
 {
-    std::cout << "OK" << std::endl;
     return true;
 }
 

@@ -13,10 +13,13 @@
     #include <cstdint>
     #include <map>
     #include <string>
+    #include <limits>
     #include <functional>
 
 std::pair<std::size_t, std::size_t> starting(std::string const &arg);
 std::pair<std::size_t, std::size_t> recStarting(std::string const &arg);
+
+static const int32_t INF = std::numeric_limits<int32_t>::max();
 
 class Gomoku;
 

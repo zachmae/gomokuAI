@@ -18,7 +18,7 @@ static std::pair<std::size_t, std::size_t> apply(const std::pair<std::string, st
         return starting(command.second);
     if (command.first == "RECTSTART")
         return recStarting(command.second);
-    std::cout << "MESSAGE: Need to start the game first" << std::endl;
+    std::cout << "DEBUG: Need to start the game first" << std::endl;
     return std::make_pair(0, 0);
 }
 
@@ -45,11 +45,12 @@ int startTheGame(std::size_t sizeX, std::size_t sizeY)
     std::string input;
     std::pair<std::string, std::string> command;
 
-    std::cout << "GAME STARTED" << std::endl;
+    std::cout << "OK" << std::endl;
     std::getline(std::cin, input);
     command.first = getCommand(input);
     command.second = getArg(input, command.first);
     while (command.first != "END") {
+        std::cout << "DEBUG " << input << std::endl;
         gomoku.checkCommand(command.first, command.second);
         std::getline(std::cin, input);
         command.first = getCommand(input);
@@ -63,11 +64,12 @@ int main()
     std::string input;
     std::pair<std::string, std::string> command;
 
-    std::cout << "Welcome to Gomoku" << std::endl;
     std::getline(std::cin, input);
     command.first = getCommand(input);
     command.second = getArg(input, command.first);
+    std::cout << "DEBUG " << input << std::endl;
     while (command.first != "START" && command.first != "RECTSTART") {
+        std::cout << "DEBUG " << input << std::endl;
         std::getline(std::cin, input);
         command.first = getCommand(input);
         command.second = getArg(input, command.first);
