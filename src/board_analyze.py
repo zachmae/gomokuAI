@@ -4,7 +4,7 @@ from math import inf
 
 def analyse_board_value(board, sign, counter_sign):
     score = 0
-    equivalent = [0, 1, 2, 4, 8, inf]
+    equivalent = [[0, 0, 0, 0, 0, inf], [0, 1, 4, 16, 64, inf], [0, 2, 8, 32, 1000, inf]]
     board_len_x = len(board[0])
     board_len_y = len(board)
     try:
@@ -24,9 +24,9 @@ def analyse_board_value(board, sign, counter_sign):
                         multiplier += 1
                     if (y and board[x][y - 1] ==  sign):
                         multiplier = 0
-                    if equivalent[size_h] == inf:
+                    if equivalent[multiplier][size_h] == inf:
                         return inf
-                    score += equivalent[size_h] * multiplier
+                    score += equivalent[multiplier][size_h]
                     # check vertical
                     multiplier = 0
                     size_v = 1
@@ -40,9 +40,9 @@ def analyse_board_value(board, sign, counter_sign):
                         multiplier += 1
                     if (x and board[x - 1][y] ==  sign):
                         multiplier = 0
-                    if equivalent[size_v] == inf:
+                    if equivalent[multiplier][size_v] == inf:
                         return inf
-                    score += equivalent[size_v] * multiplier
+                    score += equivalent[multiplier][size_v]
                     # check diagonal up
                     multiplier = 0
                     size_du = 1
@@ -56,9 +56,9 @@ def analyse_board_value(board, sign, counter_sign):
                         multiplier += 1
                     if (x != board_len_y - 1 and y and board[x + 1][y - 1] == sign):
                         multiplier = 0
-                    if equivalent[size_du] == inf:
+                    if equivalent[multiplier][size_du] == inf:
                         return inf
-                    score += equivalent[size_du] * multiplier
+                    score += equivalent[multiplier][size_du]
                     # check diagonal down
                     multiplier = 0
                     size_dd = 1
@@ -72,9 +72,9 @@ def analyse_board_value(board, sign, counter_sign):
                         multiplier += 1
                     if (x and y and board[x - 1][y - 1] == sign):
                         multiplier = 0
-                    if equivalent[size_dd] == inf:
+                    if equivalent[multiplier][size_dd] == inf:
                         return inf
-                    score += equivalent[size_dd] * multiplier
+                    score += equivalent[multiplier][size_dd]
     except Exception as e:
         print(f"ERROR error = {e}", flush=True)
     return score

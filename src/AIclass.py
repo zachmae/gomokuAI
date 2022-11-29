@@ -12,7 +12,6 @@ class Ai:
     def __init__(self):
         self.game_board = []
         self.current_turn = 0
-        self.color = 0
         self.time = 0
         self.x = 0
         self.y = 0
