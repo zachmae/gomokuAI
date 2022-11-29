@@ -27,5 +27,7 @@ add_executable(${PROJECT_NAME}
         src/main.cpp
         src/gomoku.cpp
         src/start.cpp
+        src/minmax.cpp
+        src/boardAnalyze.cpp
         ${COMMAND_SRC}
 )

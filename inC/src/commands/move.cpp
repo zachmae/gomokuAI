@@ -28,7 +28,7 @@ bool Gomoku::begin(std::string const &data)
 {
     _ALLY = 1;
     _ENEMY = 2;
-    return true; // TODO do minmax algo
+    return lunchMinmax();
 }
 
 bool Gomoku::turn(std::string const &data)
@@ -48,8 +48,8 @@ bool Gomoku::turn(std::string const &data)
         return false;
     }
     _gameBoard[pos.first][pos.second] = _ENEMY;
-    _currentTurn++;
-    return true; //TODO do minmax algo
+    ++_currentTurn;
+    return lunchMinmax();
 }
 
 bool Gomoku::play(std::string const &data)
