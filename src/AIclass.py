@@ -74,7 +74,7 @@ class Ai:
                             c += 1
                     if (c):
                         self.game_board[x][y] = self.ALLY
-                        value = alpha_beta_prunning(self.game_board, 2, False, self.ALLY, self.ENEMY, -inf, inf, int(self.game_info["timeout_turn"]), CURRENT_TIME)
+                        value = alpha_beta_prunning(self.game_board, 1, False, self.ALLY, self.ENEMY, -inf, inf, int(self.game_info["timeout_turn"]), CURRENT_TIME)
                         self.game_board[x][y] = self.EMPTY
                         if (value > best_value or (value == best_value and distance_from_middle(x, y, self.game_board) < distance_from_middle(best_move[0], best_move[1], self.game_board)) or set_move == False):
                             best_value = value
