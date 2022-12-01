@@ -2,6 +2,7 @@ def begin(self, command):
     self.ALLY = 1
     self.ENEMY = 2
     self.EMPTY = 0
+    self.current_turn += 1
     return self.do_minmax()
 
 
@@ -16,6 +17,7 @@ def turn(self, command):
             print("ERROR: TURN Invalid position (already taken)", x, y, pos[x][y], flush=True)
             return False
         else:
+            self.current_turn += 1
             self.game_board[x][y] = self.ENEMY
             self.current_turn += 1
             return self.do_minmax()

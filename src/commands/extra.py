@@ -12,7 +12,9 @@ def board(self, command):
             if x < 0 or y < 0 or x >= self.sizeX or y >= self.sizeY or tile not in [self.EMPTY, self.ALLY, self.ENEMY]:
                 print("ERROR: BOARD Invalid board (out of board or not in ally empty enemy)", flush=True)
                 return False
+            self.current_turn += 1
             self.game_board[int(content[0])][int(content[1])] = int(content[2])
+        self.current_turn += 1
         return self.do_minmax()
     except Exception as e:
         print("ERROR: BOARD Invalid board (except)", e, flush=True)

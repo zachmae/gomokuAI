@@ -41,8 +41,5 @@ def rect_start(self, command):
 def restart(self, command):
     self.game_board = [[self.EMPTY for x in range(self.sizeX)] for y in range(self.sizeY)]
     self.current_turn = 0
-    self.time = 0
-    self.x = 0
-    self.y = 0
     self.game_info = {}
     print("OK", flush=True)
