@@ -24,10 +24,11 @@ static std::pair<int, int> getPos(std::string const &str)
     }
 }
 
-bool Gomoku::begin(std::string const &data)
+bool Gomoku::begin([[maybe_unused]] std::string const &data)
 {
     _ALLY = 1;
     _ENEMY = 2;
+    _currentTurn += 1;
     return lunchMinmax();
 }
 
@@ -47,6 +48,7 @@ bool Gomoku::turn(std::string const &data)
         std::cout << "ERROR: TURN position is already taken" << std::endl;
         return false;
     }
+    ++_currentTurn;
     _gameBoard[pos.first][pos.second] = _ENEMY;
     ++_currentTurn;
     return lunchMinmax();
@@ -70,6 +72,7 @@ bool Gomoku::play(std::string const &data)
     }
     _gameBoard[pos.first][pos.second] = _ALLY;
     _currentTurn++;
+    std::cout << pos.first << "," << pos.second << std::endl;
     return true;
 }
 

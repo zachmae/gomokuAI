@@ -8,38 +8,74 @@
 #include <iostream>
 #include "gomoku.hpp"
 
-bool Gomoku::board(const std::string &data)
+static std::vector<std::string> strToVector(std::string const &str, char delim)
 {
+    std::vector<std::string> result;
+    std::string tmp;
+
+    for (auto &it : str) {
+        if (it == delim) {
+            result.push_back(tmp);
+            tmp.clear();
+        } else {
+            tmp += it;
+        }
+    }
+    result.push_back(tmp);
+    return result;
+}
+
+std::vector<int> Gomoku::getContent(const std::string &line) const
+{
+    int x = 0;
+    int y = 0;
+    int tile = 0;
+    std::vector<std::string> content = strToVector(line, ',');
+
+    if (content.size() != 3) {
+        std::cout << "ERROR: Invalid board data" << std::endl;
+        return {};
+    }
+    try {
+        x = std::stoi(content[0]);
+        y = std::stoi(content[1]);
+        tile = std::stoi(content[2]);
+    } catch (std::exception &e) {
+        std::cout << "ERROR BOARD x,y or tile isn't a number" << std::endl;
+        return {};
+    }
+    if (x < 0 || y < 0 || x >= _boardSize.first || y >= _boardSize.second || (tile != 1 && tile != 2)) {
+        std::cout << "ERROR BOARD Invalid board (out of board or not in ally empty enemy)" << std::endl;
+        return {};
+    }
+    return {x, y, tile};
+}
+
+bool Gomoku::board([[maybe_unused]] const std::string &data)
+{
+    std::string line;
+    std::vector<int> content;
+
+    std::getline(std::cin, line);
+    while (line != "DONE") {
+        content = getContent(line);
+        if (content.empty())
+            return false;
+        ++_currentTurn;
+        _gameBoard[content[0]][content[1]] = (content[2] == 1) ? _ALLY : _ENEMY;
+        std::getline(std::cin, line);
+    }
+    ++_currentTurn;
+    return lunchMinmax();
+}
+
+bool Gomoku::about([[maybe_unused]] std::string const &data)
+{
+    std::cout << R"(name="Gomoku", version="2.0", author="Gomoku", country="France")" << std::endl;
     return true;
 }
 
-bool Gomoku::about(std::string const &data)
-{
-    std::cout << R"(name="Gomoku", version="1.0", author="Gomoku", country="France")" << std::endl;
-    return true;
-}
-
-bool Gomoku::info(std::string const &data)
+bool Gomoku::info([[maybe_unused]] std::string const &data)
 {
     return true;
 }
-
-
-
-/*def board(self, plateau):
-    try:
-    line = ""
-    while line != "DONE":
-        line = input()
-        content = line.split(",")
-        x = int(content[0])
-        y = int(content[1])
-        tile = int(content[2])
-        if x < 0 or y < 0 or x >= self.sizeX or y >= self.sizeY or tile not in [self.EMPTY, self.ALLY, self.ENEMY]:
-            print("ERROR: BOARD Invalid board (out of board or not in ally empty enemy)", flush=True)
-            return False
-        plateau[int(content[0])][int(content[1])] = int(content[2])
-        return self.do_minmax()
-    except Exception as e:
-        print("ERROR: BOARD Invalid board (except)", e, flush=True)
-        return False*/

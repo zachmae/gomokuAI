@@ -9,12 +9,14 @@ CXX			=	g++
 
 NAME		= 	pbrain-gomoku-ai
 
-MAIN		=	src/main.cpp
-
-SRC			=	src/gomoku.cpp		\
-				src/start.cpp		\
-				src/move.cpp		\
-				src/main.cpp
+SRC			=	src/gomoku.cpp			\
+                src/main.cpp			\
+                src/minmax.cpp			\
+                src/start.cpp			\
+                src/boardAnalyze.cpp	\
+                src/commands/extra.cpp	\
+                src/commands/move.cpp	\
+                src/commands/restart.cpp
 
 OBJ			=	$(SRC:.cpp=.o)
 
@@ -36,5 +38,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+
+re: fclean all
 
 .PHONY: all debug clean fclean

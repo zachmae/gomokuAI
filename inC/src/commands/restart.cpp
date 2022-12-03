@@ -7,7 +7,7 @@
 
 #include "gomoku.hpp"
 
-bool Gomoku::restart(std::string const &data)
+bool Gomoku::restart([[maybe_unused]]std::string const &data)
 {
     _currentTurn = 0;
     _gameBoard = std::vector<std::vector<uint_fast8_t>>(_boardSize.first, std::vector<uint_fast8_t>(_boardSize.second, _EMPTY));

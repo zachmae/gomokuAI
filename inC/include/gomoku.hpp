@@ -44,6 +44,7 @@ class Gomoku {
         // EXTRA
         bool board(std::string const &data);
         bool info(std::string const &data);
+        std::vector<int> getContent(const std::string &line) const;
         bool about(std::string const &data);
 
 

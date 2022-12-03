@@ -62,20 +62,16 @@ int main()
 {
     std::string input;
     std::pair<std::string, std::string> command;
+    std::pair<std::size_t, std::size_t> size = {0, 0};
 
-    std::getline(std::cin, input);
-    command.first = getCommand(input);
-    command.second = getArg(input, command.first);
-    while (command.first != "START" && command.first != "RECTSTART" && command.first != "END") {
+    while (size.first < 5 && size.second < 5) {
         std::getline(std::cin, input);
         command.first = getCommand(input);
         command.second = getArg(input, command.first);
+        if (command.first == "END")
+            return 0;
+        size = apply(command);
     }
-    if (command.first == "END")
-        return 0;
-    std::pair<std::size_t, std::size_t> size = apply(command);
-    if (size.first < 5 || size.second < 5)
-        return 84;
     if (startTheGame(size.first, size.second) < 0)
         return 84;
     return 0;

@@ -18,7 +18,7 @@ bool Gomoku::lunchMinmax()
         for (int y = 0; y < _boardSize.second; y++) {
             if (_gameBoard[x][y] == _EMPTY) {
                 _gameBoard[x][y] = _ALLY;
-                moveValue = alphaBetaPruning(1, false, -INF, INF);//minmax(1, false);
+                moveValue = alphaBetaPruning(2, false, -INF, INF);
                 _gameBoard[x][y] = _EMPTY;
                 if (moveValue > bestValue || (moveValue == bestValue && distanceFromMiddle(x, y) < distanceFromMiddle(bestMove.first, bestMove.second))) {
                     bestMove.first = x;
