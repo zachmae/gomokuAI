@@ -29,6 +29,7 @@ class Ai:
         self.sizeX = 0
         self.sizeY = 0
         self.game_info = {}
+        self.game_info["timeout_turn"] = 5000
         self.ALLY = 2
         self.ENEMY = 1
         self.EMPTY = 0
