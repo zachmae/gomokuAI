@@ -9,9 +9,11 @@
 
 int Gomoku::checkDiagonalUp(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign)
 {
-    int equivalent[6] = {0, 1, 2, 4, 8, INF};
     int multiplier = 0;
     int sizeDu = 1;
+    int equivalent[3][6] = {{0, 0, 0, 0, 0, INF},
+                            {0, 1, 4, 16, 64, INF},
+                            {0, 2, 8, 32, 1000, INF}};
 
     if (x != _boardSize.first - 1 && y > 0 && _gameBoard[x + 1][y - 1] == _EMPTY)
         multiplier += 1;
@@ -24,17 +26,19 @@ int Gomoku::checkDiagonalUp(int x, int y, uint_fast8_t sign, uint_fast8_t counte
         multiplier += 1;
     if (x + 1 < _boardSize.first && y > 0 && _gameBoard[x + 1][y - 1] == sign)
         multiplier = 0;
-    if (equivalent[sizeDu] == INF)
+    if (equivalent[multiplier][sizeDu] == INF)
         return INF;
-    return equivalent[sizeDu] * multiplier;
+    return equivalent[multiplier][sizeDu];
 
 }
 
 int Gomoku::checkDiagonalDown(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign)
 {
-    int equivalent[6] = {0, 1, 2, 4, 8, INF};
     int multiplier = 0;
     int sizeDd = 1;
+    int equivalent[3][6] = {{0, 0, 0, 0, 0, INF},
+                            {0, 1, 4, 16, 64, INF},
+                            {0, 2, 8, 32, 1000, INF}};
 
     if (x > 0 && y > 0 && _gameBoard[x - 1][y - 1] == _EMPTY)
         multiplier += 1;
@@ -47,16 +51,18 @@ int Gomoku::checkDiagonalDown(int x, int y, uint_fast8_t sign, uint_fast8_t coun
         multiplier += 1;
     if (x > 0 && y > 0 && _gameBoard[x - 1][y - 1] == sign)
         multiplier = 0;
-    if (equivalent[sizeDd] == INF)
+    if (equivalent[multiplier][sizeDd] == INF)
         return INF;
-    return equivalent[sizeDd] * multiplier;
+    return equivalent[multiplier][sizeDd];
 }
 
 int Gomoku::checkVertical(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign)
 {
-    int equivalent[6] = {0, 1, 2, 4, 8, INF};
     int multiplier = 0;
     int sizeV = 1;
+    int equivalent[3][6] = {{0, 0, 0, 0, 0, INF},
+                            {0, 1, 4, 16, 64, INF},
+                            {0, 2, 8, 32, 1000, INF}};
 
     if (x > 0 && _gameBoard[x - 1][y] == _EMPTY)
         multiplier += 1;
@@ -69,16 +75,18 @@ int Gomoku::checkVertical(int x, int y, uint_fast8_t sign, uint_fast8_t counterS
         multiplier += 1;
     if (x > 0 && _gameBoard[x - 1][y] == sign)
         multiplier = 0;
-    if (equivalent[sizeV] == INF)
+    if (equivalent[multiplier][sizeV] == INF)
         return INF;
-    return equivalent[sizeV] * multiplier;
+    return equivalent[multiplier][sizeV];
 }
 
 int Gomoku::checkHorizontal(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign)
 {
-    int equivalent[6] = {0, 1, 2, 4, 8, INF};
     int multiplier = 0;
     int sizeH = 1;
+    int equivalent[3][6] = {{0, 0, 0, 0, 0, INF},
+                            {0, 1, 4, 16, 64, INF},
+                            {0, 2, 8, 32, 1000, INF}};
 
     if (y > 0 && _gameBoard[x][y - 1] == _EMPTY)
         multiplier += 1;
@@ -91,9 +99,9 @@ int Gomoku::checkHorizontal(int x, int y, uint_fast8_t sign, uint_fast8_t counte
         multiplier += 1;
     if (y > 0 && _gameBoard[x][y - 1] == sign)
         multiplier = 0;
-    if (equivalent[sizeH] == INF)
+    if (equivalent[multiplier][sizeH] == INF)
         return INF;
-    return equivalent[sizeH] * multiplier;
+    return equivalent[multiplier][sizeH];
 }
 
 int Gomoku::analyseBoardValue(uint_fast8_t sign, uint_fast8_t counterSign)
