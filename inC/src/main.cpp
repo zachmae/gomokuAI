@@ -50,7 +50,6 @@ int startTheGame(std::size_t sizeX, std::size_t sizeY)
     command.first = getCommand(input);
     command.second = getArg(input, command.first);
     while (command.first != "END") {
-        std::cout << "DEBUG " << input << std::endl;
         gomoku.checkCommand(command.first, command.second);
         std::getline(std::cin, input);
         command.first = getCommand(input);
@@ -67,13 +66,13 @@ int main()
     std::getline(std::cin, input);
     command.first = getCommand(input);
     command.second = getArg(input, command.first);
-    std::cout << "DEBUG " << input << std::endl;
-    while (command.first != "START" && command.first != "RECTSTART") {
-        std::cout << "DEBUG " << input << std::endl;
+    while (command.first != "START" && command.first != "RECTSTART" && command.first != "END") {
         std::getline(std::cin, input);
         command.first = getCommand(input);
         command.second = getArg(input, command.first);
     }
+    if (command.first == "END")
+        return 0;
     std::pair<std::size_t, std::size_t> size = apply(command);
     if (size.first < 5 || size.second < 5)
         return 84;

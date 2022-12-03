@@ -19,7 +19,7 @@
 std::pair<std::size_t, std::size_t> starting(std::string const &arg);
 std::pair<std::size_t, std::size_t> recStarting(std::string const &arg);
 
-static const int32_t INF = std::numeric_limits<int32_t>::max();
+static const int32_t INF = std::numeric_limits<int32_t>::max() - 1;
 
 class Gomoku;
 
@@ -56,12 +56,16 @@ class Gomoku {
         bool lunchMinmax();
 
         int distanceFromMiddle(int x, int y) const;
-        int trying(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign);
 
         bool minmax(int depth, bool myTurn);
+
+        int checkHorizontal(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign);
+        int checkVertical(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign);
+        int checkDiagonalUp(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign);
+        int checkDiagonalDown(int x, int y, uint_fast8_t sign, uint_fast8_t counterSign);
         int calculateBoardValue();
 
-        bool alphaBetaPruning(int depth, bool myTurn, int alpha, int beta);
+        int alphaBetaPruning(int depth, bool myTurn, int alpha, int beta);
     private:
 
         uint_fast8_t _EMPTY;
@@ -70,14 +74,11 @@ class Gomoku {
 
         std::pair<int, int> _boardSize;
         std::vector<std::vector<uint_fast8_t>> _gameBoard;
-        std::pair<int, int> _positions;
 
         std::unordered_map<std::string, fun> commandList;
         void fillCommandList();
 
         int _currentTurn;
-        int _color;
-        int _time;
 };
 
 #endif /* !Gomoku_HPP_ */

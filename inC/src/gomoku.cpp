@@ -22,11 +22,9 @@ void Gomoku::fillCommandList()
 
 Gomoku::Gomoku(std::size_t x, std::size_t y)
     : _EMPTY(0), _ENEMY(1), _ALLY(2), _boardSize(x, y),
-    _gameBoard(x, std::vector<uint_fast8_t>(y, _EMPTY)), _positions(0, 0)
+    _gameBoard(x, std::vector<uint_fast8_t>(y, _EMPTY))
 {
     _currentTurn = 0;
-    _color = 0;
-    _time = 0;
     fillCommandList();
 }
 
@@ -42,8 +40,8 @@ bool Gomoku::checkCommand(std::string const &name, std::string const &data)
 
 int Gomoku::distanceFromMiddle(int x, int y) const
 {
-    int middleX = _boardSize.first; // 2;
-    int middleY = _boardSize.second; // 2
+    int middleX = _boardSize.first / 2;
+    int middleY = _boardSize.second / 2;
 
     return abs(x - middleX) + abs(y - middleY);
 }

@@ -6,7 +6,6 @@
 */
 
 #include <string>
-#include <array>
 #include <utility>
 #include <stdexcept>
 #include <iostream>
