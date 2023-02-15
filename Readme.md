@@ -5,7 +5,9 @@ I've accomplished this project with my team mate [Ines](https://github.com/Happi
 
 This consisit of an implementation of the Minimax algorithm with alpha-beta pruning and a heuristic function in python.
 
-We followed the piskvork protocol to communicate with the game engine used by the AI .
+We followed the piskvork protocol to communicate with the game engine used by the AI.
+
+We also won EPITECH PARIS 2023 gomoku tournament in which our AI faced the one made by other students.
 
 ## Prerequies ##
 *you will have to installed python 3:*
